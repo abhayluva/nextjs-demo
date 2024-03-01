@@ -1,4 +1,4 @@
-export default function UserDate({register, errors}: {register:object, errors: error}){
+export default function UserDate({register, errors}: {register:object, errors: Error}){
     return(
         <>
             <div className='grid grid-cols-2 gap-4'>
