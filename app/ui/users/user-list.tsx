@@ -14,12 +14,12 @@ export default async function UserList({currentPageNo}: {currentPageNo:any}){
             <tr key={user.id}>
                 <td className='border border-slate-400 p-3'>{user.id}</td>
                 <td className='border border-slate-400 p-3'>
-                    {/* <Image
+                    <Image
                     src='/amy-burns.png'
                     width={100}
                     height={100}
                     alt={user.name}
-                    /> */}
+                    />
                     {/* <img src={user.profilepicture} width={100} height={100} /> */}
                 </td>
                 <td className='border border-slate-400 p-3'>{user.name}</td>
