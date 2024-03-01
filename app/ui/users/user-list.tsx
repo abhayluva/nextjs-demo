@@ -7,7 +7,6 @@ export default async function UserList({currentPageNo}: {currentPageNo:any}){
     // let currentPage = Number(searchParams?.page) || 1;
     let currentPage = currentPageNo;
     let userData = await userList(currentPage);
-    console.log(userData);
     const previousPage = (userData.page != 1) ? userData.page-1 : 0;
     const nextPage = (userData.page != userData.total_pages) ? userData.page+1 : 0;
     const showTable = userData.data.map((user:any) => {

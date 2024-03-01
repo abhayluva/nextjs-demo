@@ -38,7 +38,6 @@ export default function UserCreate(){
     }
     
     const changeUserType = (e:any) => {
-      console.log(`${process.env.Google_Map_Api_Key}`);
       let utype = e.target.value;
       userTypeChange(utype);
       if(utype === "1"){

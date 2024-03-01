@@ -1,11 +1,5 @@
 import UserList from '@/app/ui/users/user-list';
-import type { Metadata } from 'next';
 import { Suspense } from 'react';
-
-export const metadata:Metadata = {
-    title: 'Demo - User Page',
-    description: 'User page detail'
-}
 
 export default async function Page({
     searchParams

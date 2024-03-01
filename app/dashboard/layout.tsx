@@ -1,10 +1,4 @@
 import Links from '@/app/components/links'
-import type { Metadata } from 'next';
-
-export const metadata:Metadata = {
-    title: 'Demo - Dashboard Page',
-    description: 'Dashboard page details showing here'
-}
 
 export default function DashboardLayout({
     children,

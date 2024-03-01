@@ -42,7 +42,6 @@ export async function userUpdate(prevState: any, formdata: FormData){
 }
 
 export async function userCreateSubmit(data: any){
-    console.log('action data: ', data);
     let token  = await getToken();
     const rowFormData = {
         name: data.uname,
@@ -51,7 +50,6 @@ export async function userCreateSubmit(data: any){
     };
     let res = await userCreateData(rowFormData, token);
     if(res){
-        console.log(res);
         redirect('/dashboard/users');
     }else{
         return{

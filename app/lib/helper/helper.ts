@@ -22,7 +22,6 @@ export async function decryptData(input: string): Promise<any>{
 
 export async function getSession(request: NextRequest){
     const session = request.cookies.get('session')?.value;
-    console.log(session);
     if(!session){
         return null;
     }else{
