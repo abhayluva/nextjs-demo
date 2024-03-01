@@ -3,8 +3,6 @@ import { Button } from '@/app/ui/button';
 import { userCreateSubmit } from '@/app/lib/actions/users/users-action';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import UserDate from '@/app/ui/users/user-date';
-import UserTime from '@/app/ui/users/user-time';
 import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 
 const initialState = {
@@ -26,11 +24,11 @@ export default function UserCreate(){
     const {register, formState: {errors}, reset, handleSubmit, setValue} = useForm();
     const [img64, img64set] = useState('');
     const [userType, userTypeChange] = useState('');
-    const [currentLocation, setCurrentLocation]:any = useState(null);
-    const [selectedPlace, setSelectedPlace] = useState(null);
-    const [autocomplete, setAutocomplete]:any = useState(null);
-    const center = currentLocation || { lat: 0, lng: 0 };
-    const containerStyle = {width: '100%', height: '300px', margin: '10px 0'};
+    // const [currentLocation, setCurrentLocation]:any = useState(null);
+    // const [selectedPlace, setSelectedPlace] = useState(null);
+    // const [autocomplete, setAutocomplete]:any = useState(null);
+    // const center = currentLocation || { lat: 0, lng: 0 };
+    // const containerStyle = {width: '100%', height: '300px', margin: '10px 0'};
 
     let createUser = async (data:any) => {
       data.img = img64;
@@ -98,24 +96,24 @@ export default function UserCreate(){
       img64set(val);
     }
 
-    const handlePlaceSelect = () => {
-      if (autocomplete !== null) {
-          const place = autocomplete.getPlace();
-          const event_location = place.formatted_address;
-          if (place.geometry) {
-              const location = {
-                  lat: place.geometry.location.lat(),
-                  lng: place.geometry.location.lng(),
-              };
-              setCurrentLocation(location);
-              setSelectedPlace(place);
-          }
-      }
-  };
+  //   const handlePlaceSelect = () => {
+  //     if (autocomplete !== null) {
+  //         const place = autocomplete.getPlace();
+  //         const event_location = place.formatted_address;
+  //         if (place.geometry) {
+  //             const location = {
+  //                 lat: place.geometry.location.lat(),
+  //                 lng: place.geometry.location.lng(),
+  //             };
+  //             setCurrentLocation(location);
+  //             setSelectedPlace(place);
+  //         }
+  //     }
+  // };
 
-  const handleLoad = (autocomplete:any) => {
-      setAutocomplete(autocomplete);
-  };
+  // const handleLoad = (autocomplete:any) => {
+  //     setAutocomplete(autocomplete);
+  // };
 
 
     return (
@@ -167,14 +165,44 @@ export default function UserCreate(){
                     {errors.utype?.type === "required" && (<p className='text-red-400'>Please select User Type</p>)}
 
                     { (userType == '1') ? 
-                      <UserDate register={register} errors={errors} />
+                      <div className='grid grid-cols-2 gap-4'>
+                          <div>
+                              <label htmlFor="st_date" className="mb-3 mt-5 block text-xs font-medium text-gray-900">Start Date</label>
+                              <input type='date' {...register("st_date", {required: true})} name="st_date" id="st_date" 
+                                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              />
+                              {errors.st_date?.type === "required" && (<p className='text-red-400'>Start Date is required</p>)}
+                          </div>
+                          <div>
+                          <label htmlFor="ed_date" className="mb-3 mt-5 block text-xs font-medium text-gray-900">End Date</label>
+                          <input type='date' {...register("ed_date", {required: true})} name="ed_date" id="ed_date" 
+                              className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                          />
+                              {errors.ed_date?.type === "required" && (<p className='text-red-400'>End Date is reuiqred</p>)}
+                          </div>
+                      </div>
                      : '' }
                     { (userType == '2') ? 
-                      <UserTime register={register} errors={errors} />
+                      <div className='grid grid-cols-2 gap-4'>
+                          <div>
+                              <label htmlFor="st_time" className="mb-3 mt-5 block text-xs font-medium text-gray-900">Start Time</label>
+                              <input type='time' {...register("st_time", {required: true})} name="st_time" id="st_time" 
+                                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              />
+                              {errors.st_time?.type === "required" && (<p className='text-red-400'>Start Tme is required</p>)}
+                          </div>
+                          <div>
+                          <label htmlFor="ed_time" className="mb-3 mt-5 block text-xs font-medium text-gray-900">End Time</label>
+                          <input type='time' {...register("ed_time", {required: true})} name="ed_time" id="ed_time" 
+                              className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                          />
+                              {errors.ed_time?.type === "required" && (<p className='text-red-400'>End Time is reuiqred</p>)}
+                          </div>
+                      </div>
                      : '' }
 
                     {/* Google Map API with search places */}
-                    <label htmlFor="utype" className="mb-3 mt-5 block text-xs font-medium text-gray-900">YOur Location</label>
+                    {/* <label htmlFor="utype" className="mb-3 mt-5 block text-xs font-medium text-gray-900">YOur Location</label>
                     <LoadScript googleMapsApiKey='AIzaSyClMHJ_a2SkwpYG6ReqClZmKJwLiT7Jrg4' libraries={['places']}>
                       <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceSelect}>
                         <input type='text' name='location' className='peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500' placeholder='Location' />
@@ -184,7 +212,7 @@ export default function UserCreate(){
                               <Marker position={currentLocation} title="Your Location" />
                           )}
                       </GoogleMap>
-                    </LoadScript>
+                    </LoadScript> */}
 
                     <Button className="mt-4 w-full">Create</Button>
                     {/* <p className='text-red-500'>
